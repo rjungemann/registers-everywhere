@@ -3,7 +3,7 @@ function! SaveRegister(r)
   let g:current_register = a:r
 
 ruby << EOF
-  path = "#{ENV['HOME']}/.vim/registers"
+  path = Vim.evaluate('g:registers_everywhere_path')
   register = Vim.evaluate('g:current_register')
 
   `mkdir -p #{path}` if !File.exists?(path)
@@ -19,7 +19,7 @@ function! RestoreRegister(r)
   let g:current_register = a:r
 
 ruby << EOF
-  path = "#{ENV['HOME']}/.vim/registers"
+  path = Vim.evaluate('g:registers_everywhere_path')
   register = Vim.evaluate('g:current_register')
 
   `mkdir -p #{path}` if !File.exists?(path)
@@ -58,7 +58,18 @@ endfunction
 
 " define keymaps for each register
 function! InitRegistersEverywhere()
+  let g:registers_everywhere_path=""
+
 ruby << EOF
+  # set a default path to store registers unless one exists
+  registers_path = Vim.evaluate('g:registers_everywhere_path')
+  default_path = "#{ENV['HOME']}/.vim/registers"
+
+  if registers_path.empty?
+    Vim.command(%{let g:registers_everywhere_path="#{default_path}"})
+  end
+
+  # include all registers except for the blank register
   registers = ['-', ':', '.', '%', '#', '='] +
     ('a'..'z').to_a + ('0'..'9').to_a + ['*', '~', '_', '/', '+'] # + ['']
 
@@ -70,5 +81,9 @@ ruby << EOF
   end
 EOF
 endfunction
+
+
+ruby << EOF
+EOF
 
 call InitRegistersEverywhere()

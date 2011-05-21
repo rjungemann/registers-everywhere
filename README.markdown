@@ -7,6 +7,8 @@ Another feature of Registers Everywhere is to persist a register to the clipboar
 
 This plugin works in console vim and MacVim.
 
+You can customize where registers get stored by setting the `g:registers_everywhere_path`.
+
 Installation
 ------------
 
@@ -16,13 +18,14 @@ Installation
 Instructions
 ------------
 
-1. Type some text and select it. Try yanking to the <code>a</code> register by typing <code>"ay</code>.
-2. Persist the register by typing <code>\ca</code>, where <code>\</code> is your "leader" key, <code>c</code> stands for "copy register to", and <code>a</code> is the register you wish to persist.
-3. Open a new instance of vim. Restore register <code>a</code> by typing <code>\va</code>.
-4. You can then pull in the contents of register <code>a</code> by typing <code>"ap</code>.
-5. You can also persist register <code>a</code> to the clipboard by typing <code>\Ca</code> and restore the clipboard to register <code>a</code> by typing <code>\Va</code>.
+1. Type some text and select it. Try yanking to the `a` register by typing `"ay`.
+2. Persist the register by typing `\ca`, where `\` is your "leader" key, `c` stands for "copy register to", and `a` is the register you wish to persist.
+3. Open a new instance of vim. Restore register `a` by typing `\va`.
+4. You can then pull in the contents of register `a` by typing `"ap`.
+5. You can also persist register `a` to the clipboard by typing `\Ca` and restore the clipboard to register `a` by typing `\Va`.
 
 To do
 -----
 
 * Support for swapping registers
+* Operator for persisting a register to an arbitrary file
